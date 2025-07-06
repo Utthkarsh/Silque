@@ -1,1 +1,11 @@
 venv/
+.env
+__pycache__/
+*.pyc
+.venv/
+data/
+kaggle/
+.ipynb_checkpoints/
+.DS_Store
+.vscode/
+.idea/

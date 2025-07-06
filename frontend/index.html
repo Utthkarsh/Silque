@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Silque</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header>
+      <h1>Silque</h1>
+      <p>Find your style, instantly.</p>
+    </header>
+    <main>
+      <div class="upload-container">
+        <h2>Upload an image.</h2>
+        <p>Upload a photo of a clothing item to find similar styles.</p>
+        <input type="file" id="img-upload-input" accept="image/*" />
+        <button id="search-button">Search</button>
+      </div>
+
+      <div class="results-container" id="result-container"></div>
+      <div
+        class="spinner-container"
+        id="spinner-container"
+        style="display: none"
+      >
+        <div class="spinner"></div>
+        <p>Finding your style...</p>
+      </div>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
