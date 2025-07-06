@@ -33,7 +33,6 @@ index = pc.Index(index_name)
 
 print("Pinecone connected.")
 
-# --- Prepare Image Data ---
 print("Preparing Image data..")
 
 image_folder_path = 'data/images'

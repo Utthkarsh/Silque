@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         //success
         const data = await response.json();
-        //  HIDE THE SPINNER
+        //  this hides the spinner after successful response
         spinnerContainer.style.display = "none";
 
         displayResults(data.results);
