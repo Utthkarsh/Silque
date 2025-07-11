@@ -7,11 +7,24 @@ import io
 from PIL import Image
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
+from contextlib import asynccontextmanager
 #load environment variables using load_dotenv()
 load_dotenv()
 
+ml_model = {}
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    print("Server starting up...")
+    print("Loading AI model...")
+    ml_model['clip-model'] = SentenceTransformer("clip-ViT-B-32")
+    print("Model loaded.")
+    yield
+    print("Server shutting down...")
+    ml_model.clear()
+
 #set up api
-app = FastAPI(title="Silque API")
+app = FastAPI(title="Silque API",lifespan=lifespan)
 
 # The address of our Live Server frontend. This if for CORS
 origins = [
@@ -25,9 +38,9 @@ origins = [
 app.add_middleware(CORSMiddleware,allow_origins=origins,allow_credentials=True,allow_methods=["*"], # Allow all methods (GET, POST, etc.)
     allow_headers=["*"], 
 )
+
 app.mount("/static",StaticFiles(directory="data"),name="static")
-#create model to create vector embeddings for images we upload
-model = SentenceTransformer("clip-ViT-B-32")
+
 
 #connect to pinecone to check if our image is similae to images in db
 pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
@@ -50,8 +63,10 @@ async def similar_image(image_file: UploadFile = File(...)):
         raise HTTPException(status_code=400,detail="File is not of type image.")
     try:
         #create the embedding for the image
-        image_embedding = model.encode(image_PIL).tolist()
-        query = index.query(vector=image_embedding,top_k=5,include_metadata=True)
+        query_embedding = ml_model['clip-model'].encode(image_PIL).tolist()
+        pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
+        index = pc.Index('silque')
+        query = index.query(vector=query_embedding,top_k=5,include_metadata=True)
 
         #return results from query
         results = []
