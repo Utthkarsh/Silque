@@ -1,0 +1,13 @@
+.git
+.gitignore
+Dockerfile
+.dockerignore
+venv
+.venv
+data/
+kaggle/
+.ipynb_checkpoints/
+__pycache__/
+.DS_Store
+.env
+
