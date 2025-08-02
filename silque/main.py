@@ -39,7 +39,7 @@ app.add_middleware(CORSMiddleware,allow_origins=origins,allow_credentials=True,a
     allow_headers=["*"], 
 )
 
-app.mount("/static",StaticFiles(directory="data"),name="static")
+
 
 
 #connect to pinecone to check if our image is similae to images in db
@@ -70,8 +70,16 @@ async def similar_image(image_file: UploadFile = File(...)):
 
         #return results from query
         results = []
+        gcs_bucket_name = os.getenv("GCS_BUCKET_NAME")
+        base_gcs_url = f"https://storage.goggleapis.com/{gcs_bucket_name}"
         for match in query['matches']:
-            results.append({'image_path':match['metadata']['image_path'],'score':match['score']})
+            original_path = match['metadata']['image_path']
+            image_path_suffix = original_path.replace('data/','')
+
+            results.append({
+                'image_url':f"{base_gcs_url}/{image_path_suffix}",
+                "score": match['score']
+            })
         
         return {"results":results}
     except Exception as e:
