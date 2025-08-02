@@ -40,12 +40,6 @@ app.add_middleware(CORSMiddleware,allow_origins=origins,allow_credentials=True,a
 )
 
 
-
-
-#connect to pinecone to check if our image is similae to images in db
-pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
-index = pc.Index("silque")
-
 @app.get("/")
 def read_root():
     return {"message":"Welcome to Silque's visual search API"}
@@ -71,7 +65,7 @@ async def similar_image(image_file: UploadFile = File(...)):
         #return results from query
         results = []
         gcs_bucket_name = os.getenv("GCS_BUCKET_NAME")
-        base_gcs_url = f"https://storage.goggleapis.com/{gcs_bucket_name}"
+        base_gcs_url = f"https://storage.googleapis.com/{gcs_bucket_name}"
         for match in query['matches']:
             original_path = match['metadata']['image_path']
             image_path_suffix = original_path.replace('data/','')
@@ -88,8 +82,8 @@ async def similar_image(image_file: UploadFile = File(...)):
 
 
 
-
-
-
-
-
+if __name__ == "__main__":
+    import uvicorn
+    # Use the PORT environment variable if it's set, otherwise default to 8000
+    port = int(os.getenv("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
