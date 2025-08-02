@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultsContainer = document.getElementById("result-container");
 
   //url of backend api endpoint
-  const apiUrl = "http://127.0.0.1:8000/search/";
+  const API_BASE_URL = "https://silque-backend-service-272670423626.us-east1.run.app"
+  const searchApiUrl = `${API_BASE_URL}/search/`
   searchButton.addEventListener("click", () => {
     const file = imageUploadInput.files[0];
     if (!file) {
@@ -16,30 +17,32 @@ document.addEventListener("DOMContentLoaded", () => {
     formData.append("image_file", file);
     spinnerContainer.style.display = "block";
     resultsContainer.innerHTML = "";
-    setTimeout(async () => {
-      try {
-        const response = await fetch(apiUrl, {
-          method: "POST",
-          body: formData,
-        });
 
-        //check for an error
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.detail || "Something went wrong");
+    requestAnimationFrame(() => {
+      requestAnimationFrame(async () => {
+        try {
+          const response = await fetch(searchApiUrl, {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.detail || "Something went wrong");
+          }
+
+          const data = await response.json();
+          displayResults(data.results);
+        } catch (error) {
+          console.error("Error:", error);
+          alert("An error occurred: " + error.message);
+        } finally {
+          // 'finally' block ensures the spinner is always hidden
+          // after the request finishes, whether it succeeded or failed.
+          spinnerContainer.style.display = "none";
         }
-        //success
-        const data = await response.json();
-        //  this hides the spinner after successful response
-        spinnerContainer.style.display = "none";
-
-        displayResults(data.results);
-      } catch (error) {
-        console.error("Error:", error);
-        alert("An error occurred" + error.message);
-        spinnerContainer.style.display = "none";
-      }
-    }, 0);
+      });
+    });
   });
 
   function displayResults(results) {
@@ -48,12 +51,23 @@ document.addEventListener("DOMContentLoaded", () => {
       resultsContainer.innerHTML = "<p>No similar images found.</p>";
       return;
     }
-    const baseUrl = "http://127.0.0.1:8000/static/";
     results.forEach((item) => {
-      const imageurl = baseUrl + item.image_path.replace("data", "");
+      const imageurl = item.image_url
       const resultElement = document.createElement("div");
       resultElement.className = "result-item";
-      resultElement.innerHTML = `<img src="${imageurl}" alt="Similar style">`;
+
+      const linkElement = document.createElement('a');
+      linkElement.href = imageurl
+      linkElement.target = "_blank"
+      linkElement.rel = "noopener noreferrer";
+
+      const imgElement = document.createElement('img')
+      imgElement.src = imageurl
+      imgElement.alt = "Similar style recommendation";
+
+      linkElement.appendChild(imgElement)
+      
+      resultElement.appendChild(linkElement)
       resultsContainer.appendChild(resultElement);
     });
   }
