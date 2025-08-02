@@ -32,7 +32,10 @@ origins = [
     "http://localhost:5500", 
     "http://127.0.0.1",
     "http://127.0.0.1:5500",
-    "http://127.0.0.1:8000"
+    "http://127.0.0.1:8000",
+    "https://silque.vercel.app",
+    "https://silque-utthkarshs-projects.vercel.app",
+    "https://silque-git-main-utthkarshs-projects.vercel.app"
 ]
 
 app.add_middleware(CORSMiddleware,allow_origins=origins,allow_credentials=True,allow_methods=["*"], # Allow all methods (GET, POST, etc.)
