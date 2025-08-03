@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Silque</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header>
@@ -13,22 +13,38 @@
       <p>Find your style, instantly.</p>
     </header>
     <main>
+
       <div class="upload-container">
         <h2>Upload an image.</h2>
         <p>Upload a photo of a clothing item to find similar styles.</p>
         <input type="file" id="img-upload-input" accept="image/*" />
         <button id="search-button">Search</button>
+        <div id="preview-container"></div>
       </div>
 
-      <div class="results-container" id="result-container"></div>
-      <div
-        class="spinner-container"
-        id="spinner-container"
-        style="display: none"
-      >
-        <div class="spinner"></div>
-        <p>Finding your style...</p>
+      <div class="search-layout-container" id="search-layout-container" style="display: none;">
+        <div class="query-column" id="query-column">
+          <div id="query-title-container"></div>
+          <div id="query-image-container"></div>
+          <button id="new-search-button" class="secondary-button" style="display: none;">New Search</button>
+        </div>
+        <div class="results-column">
+          <div
+            class="spinner-container"
+            id="spinner-container"
+            style="display: none"
+          >
+            <div class="spinner"></div>
+            <p>Finding your style...</p>
+
+          </div>
+          <div class="results-container" id="result-container"></div>
+          
+        </div>
+        
       </div>
+
+      
     </main>
     <script src="script.js"></script>
   </body>
