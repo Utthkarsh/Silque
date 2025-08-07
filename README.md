@@ -7,7 +7,7 @@
  
 [![Cloud Provider](https://img.shields.io/badge/Cloud-Google_Cloud-orange)](https://cloud.google.com/)
 
-An end to end, full-stack application that allows users to find stylistically similar clothing items by uploading an image. This project demonstrates a complete product lifecycle from local development to a scalable cloud deployment.
+Silque is an end to end, AI powered visual search engine for fashion. It allows users to upload an image of a clothing item and instantly discover stylistically similar products from a large catalog. This project was built to solve a real world discovery problem while demonstrating a mastery of modern cloud-native architecture, from local containerization with Docker to a scalable, serverless deployment on Google Cloud.
 
 ---
 
@@ -32,11 +32,11 @@ An end to end, full-stack application that allows users to find stylistically si
 ![Silque Architecture](./demo/silqueArchitecture.png)
 
 #### Technologies Used:
-*   **Frontend:** HTML5, CSS3, Vanilla JavaScript (ES6)
-*   **Backend:** Python 3.10, FastAPI
-*   **AI / ML:** `sentence-transformers`, PyTorch, Pinecone (Vector DB)
+*   **Frontend:** Vanilla JavaScript (ES6), HTML5, CSS3
+*   **Backend:** Python, FastAPI
+*   **AI / ML:** Sentence-Transformers (CLIP), Pinecone (Vector Database)
 *   **Database & Storage:** Pinecone, Google Cloud Storage
-*   **DevOps & Deployment:** Docker, Google Cloud Run, Vercel (CI/CD), GitHub Actions
+*   **DevOps & Deployment:** Google Cloud Run, Google Cloud Storage, Docker, Vercel, GitHub Actions
 
 ---
 
@@ -56,7 +56,7 @@ Building and deploying Silque involved solving several real-world engineering ch
 #### Prerequisites
 *   Docker Desktop installed
 *   Google Cloud SDK (`gcloud`) installed and configured
-*   A `.env` file in the project root with your `PINECONE_API_KEY`, `PINECONE_ENVIRONMENT`, and `GCS_BUCKET_NAME`.
+*   A `.env` file in the project root with your `PINECONE_API_KEY`, `PINECONE_ENVIRONMENT`, and `GCS_BUCKET_NAME`. 
 
 #### Running the Backend
 1.  **Build the Docker image:**
