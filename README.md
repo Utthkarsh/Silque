@@ -13,7 +13,6 @@ An end to end, full-stack application that allows users to find stylistically si
 
 ### Demo
 ![Silque Demo GIF](./demo/silque-demo.gif)
-*(A short GIF demonstrating the entire user flow: uploading an image, the UI transformation, and the results appearing.)*
 
 ---
 
@@ -30,8 +29,7 @@ An end to end, full-stack application that allows users to find stylistically si
 ### Tech Stack & Architecture
 
 #### Architecture Diagram
-![Silque Architecture](./docs/architecture.png)
-*(A simple diagram showing the flow: User -> Vercel -> Google Cloud Run -> Pinecone/GCS)*
+![Silque Architecture](./demo/silqueArchitecture.png)
 
 #### Technologies Used:
 *   **Frontend:** HTML5, CSS3, Vanilla JavaScript (ES6)
