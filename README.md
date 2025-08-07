@@ -12,7 +12,7 @@ An end to end, full-stack application that allows users to find stylistically si
 ---
 
 ### Demo
-![Silque Demo GIF](./docs/demo.gif)
+![Silque Demo GIF](./docs/silque-demo.gif)
 *(A short GIF demonstrating the entire user flow: uploading an image, the UI transformation, and the results appearing.)*
 
 ---
